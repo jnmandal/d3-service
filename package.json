@@ -1,0 +1,27 @@
+{
+  "name": "cartographer-d3-service",
+  "version": "0.0.1",
+  "description": "service for rendering svg data",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "d3": "^3.5.17",
+    "ejs": "^2.4.2",
+    "express": "^4.13.4",
+    "topojson": "^1.6.26"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnmandal/d3-service.git"
+  },
+  "author": "@jnmandal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jnmandal/d3-service/issues"
+  },
+  "homepage": "https://github.com/jnmandal/d3-service#readme"
+}
