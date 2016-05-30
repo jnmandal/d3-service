@@ -71,6 +71,6 @@ app.get('/countries', (req, res) => {
   res.send(data);
 });
 
-app.listen(3001, function () {
-  console.log('D3 service listening on port 3001!');
+app.listen(process.env.PORT || 3001, () => {
+  console.log('D3 service up!');
 });
