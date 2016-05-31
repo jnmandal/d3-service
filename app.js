@@ -27,14 +27,22 @@ function generate(country) {
       var projection = d3.geo
           .mercator()
           .scale(scale)
-          .translate(offset)
           .center(center)
+          .translate(offset)
 
       var path = d3.geo
         .path()
         .projection(projection);
 
+      bounds = path.bounds(f);
+      minx = Math.min(bounds[0][0], bounds[1][0])
+      miny = Math.min(bounds[0][1], bounds[1][1])
+      maxx = Math.max(bounds[0][0], bounds[1][0])
+      maxy = Math.max(bounds[0][1], bounds[1][1])
+      console.log(bounds)
+
       return {
+        viewbox: `${minx} ${miny} ${maxx} ${maxy}`,
         name: f.properties.name,
         id: f.id,
         coords: [path(f)],
@@ -50,7 +58,7 @@ app.get('/countries/:country?.svg?', (req, res) => {
     res.status(404);
     res.send({error: 404, message: 'Could not find this country'});
   } else {
-    res.render('template', {viewbox: `0 0 ${WIDTH} ${HEIGHT}`, path:  data[0].coords[0]});
+    res.render('template', {viewbox: data[0].viewbox, path:  data[0].coords[0]});
   }
 });
 
