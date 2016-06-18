@@ -1,7 +1,7 @@
 var express  = require('express'),
     d3       = require('d3'),
     topojson = require('topojson'),
-    world    = require('./data/world.json');
+    world    = require('./data/worldc11.json');
 
 //extended projections
 require("d3-geo-projection")(d3);
@@ -14,11 +14,11 @@ const WIDTH = 960,
 
 function generate(country) {
   if (!country) return {};
-  var subunits = topojson.feature(world, world.objects.subunits_world);
-
+  var subunits = topojson.feature(world, world.objects.worldc11);
   var data = subunits.features
     .filter(f => {
-      return f.id === country})
+      console.log(f.properties.adm0_a3);
+      return f.properties.adm0_a3 === country})
     .map(f => {
       var scale  = 500;
       var center = d3.geo.centroid(f)
@@ -52,7 +52,7 @@ function generate(country) {
 }
 
 app.get('/countries/:country?.svg?', (req, res) => {
-  console.log(req.params.country)
+  console.log(req.params.country);
   var data = generate(req.params.country);
   if (data.length === 0) {
     res.status(404);
@@ -63,7 +63,7 @@ app.get('/countries/:country?.svg?', (req, res) => {
 });
 
 app.get('/countries/:country', (req, res) => {
-  console.log(req.params.country)
+  console.log(req.params.country);
   var data = generate(req.params.country);
   if (data.length === 0) {
     res.status(404);
